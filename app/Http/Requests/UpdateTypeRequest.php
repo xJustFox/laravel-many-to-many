@@ -30,7 +30,7 @@ class UpdateTypeRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'         => 'Il campo Name Type è obbligatorio.',
+            'name.required'         => 'Il campo Name Technology è obbligatorio.',
             'name.max'              => 'Il campo deve avere massimo 100 caratteri',
         ];
     }

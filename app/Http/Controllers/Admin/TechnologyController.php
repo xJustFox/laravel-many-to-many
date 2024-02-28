@@ -7,6 +7,7 @@ use App\Models\Technology;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class TechnologyController extends Controller
 {
@@ -67,9 +68,17 @@ class TechnologyController extends Controller
      * @param  \App\Models\Technology  $technology
      * @return \Illuminate\Http\Response
      */
-    public function edit(Technology $technology)
+    public function edit(Technology $technology, Request $request)
     {
-        //
+        $error_message = '';
+        $error_message_color = '';
+        if (!empty($request->all())) {
+            $messages = $request->all();
+            $error_message = $messages['error_message'];
+            $error_message_color = $messages['error_message_color'];
+        }
+
+        return view('admin.technologies.edit', compact('technology', 'error_message', 'error_message_color') );
     }
 
     /**
@@ -81,7 +90,24 @@ class TechnologyController extends Controller
      */
     public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
-        //
+        $form_data = $request->all();
+
+        $exists = Technology::where('name', 'LIKE', $form_data['name'])->where('id', '!=', $technology['id'])->get();
+        if (count($exists) > 0) {
+            $error_message = 'Hai inserito un titolo già presente in un altro progetto';
+            return redirect()->route('admin.technologies.edit', compact('technology', 'error_message'));
+        }
+
+        $exists_color = Technology::where('color', 'LIKE', $form_data['color'])->where('id', '!=', $technology['id'])->get();
+        if (count($exists_color) > 0) {
+            $error_message = 'Hai inserito un colore già presente in un altra tecnologia';
+            return redirect()->route('admin.technologies.edit', compact('technology', 'error_message_color'));
+        }
+
+        $technology['slug'] = Str::slug($form_data['name']);
+        $technology->update($form_data);
+
+        return redirect()->route('admin.technologies.index');
     }
 
     /**

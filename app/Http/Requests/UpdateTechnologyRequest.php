@@ -13,7 +13,7 @@ class UpdateTechnologyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class UpdateTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'  => 'required|max:100',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required'         => 'Il campo Name Type è obbligatorio.',
+            'name.max'              => 'Il campo deve avere massimo 100 caratteri',
         ];
     }
 }
