@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
+use Illuminate\Support\Str;
 
 class TechnologyController extends Controller
 {
@@ -38,7 +39,15 @@ class TechnologyController extends Controller
      */
     public function store(StoreTechnologyRequest $request)
     {
-        //
+        $form_data = $request->all();
+
+        $technology = new Technology();
+
+        $technology->fill($form_data);
+        $technology['slug'] = Str::slug($form_data['name']);
+        $technology->save();
+
+        return redirect()->route('admin.technologies.index');
     }
 
     /**
