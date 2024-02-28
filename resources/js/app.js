@@ -15,11 +15,19 @@ deleteButtons.forEach((button) => {
 
         let text_modal = document.getElementById('custom-message-modal');
 
-        if (path == 'types') {
-            text_modal.textContent = 'tipo';
-        }
-        else{
-            text_modal.textContent = 'progetto';
+        switch (path) {
+            case 'types':
+                text_modal.textContent = 'questo tipo';
+                break;
+            case 'projects':
+                text_modal.textContent = 'questo progetto';
+                break;
+            case 'technologies':
+                text_modal.textContent = 'questa tecnologia';
+                break;
+        
+            default:
+                break;
         }
 
         let url = `${window.location.origin}/admin/${path}/${slug}`;

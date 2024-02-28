@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h3>Sei sicuro di voler eliminare questo <span id="custom-message-modal"></span>?</h3>
+                <h3>Sei sicuro di voler eliminare <span id="custom-message-modal"></span>?</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Chiudi</button>
