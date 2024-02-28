@@ -67,6 +67,7 @@
                     @enderror
                 </div>
 
+                {{-- Technology Proj --}}
                 <div class="col-12 mt-3 ">
                     <label class="form-label my-label">Project Technology</label>
                     <div>

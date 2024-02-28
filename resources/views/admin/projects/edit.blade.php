@@ -75,7 +75,21 @@
                         <div id="dateEndError" class="form-text text-danger">{{$message}}</div>
                     @enderror
                 </div>
-    
+
+                {{-- Technology Proj --}}
+                <div class="col-12 mt-3 ">
+                    <label class="form-label my-label">Project Technology</label>
+                    <div>
+                        @foreach ($technologies as $technology)
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="technologies[]" id="tech-{{$technology->id}}" value="{{$technology->id}}" {{$project->technologies->contains($technology->id) ? 'checked' : ''}}>
+                                <label for="" class="form-check-label ms-1 badge rounded-pill text-black" style="background-color: {{$technology->color}}">{{$technology->name}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                
+                {{-- Desctiption Proj --}}
                 <div class="col-12 mt-3 ">
                     <label class="form-label my-label" for="descriptionProject">Project Description</label>
                     <textarea class="form-control form-control-sm @error('description') is-invalid border-danger @enderror" name="description" id="descriptionProject" cols="30" rows="10" aria-describedby="descriptionError" required>{{$project['description']}}</textarea>
